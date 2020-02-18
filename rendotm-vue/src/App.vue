@@ -1,18 +1,77 @@
 <template>
   <div id="app">
     <header>
-      <span>Vue.js PWA</span>
+      <span>Ren.M
+        <md-button >Login</md-button>
+        <md-button >Sign up</md-button>
+      </span>
+
+            
+
     </header>
     <main>
-      <img src="./assets/logo.png" alt="Vue.js PWA">
+      <div>
+        <h1 align="left">Get</h2>
+        <vue-good-table
+          :columns="columns"
+          :rows="calcRow"/>
+      </div>
+      <div align="left"> 
+        <h1 align="left">POST</h2>
+        <md-button
+          @click="$emit('click', true)"
+        >
+          Post
+      </md-button>
+      </div>
+
       <router-view></router-view>
     </main>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
-  name: 'app'
+  name: 'app',
+  data () {
+    return {
+      columns: [
+        {
+          label: 'User ID',
+          field: 'user_id'
+        },
+        {
+          label: 'Name',
+          field: 'username'
+        },
+        {
+          label: 'Password',
+          field: 'password'
+        },
+        {
+          label: 'Tenants',
+          field: 'tenants'
+        }
+      ],
+      info: '',
+      errored: false
+    }
+  },
+  mounted () {
+    axios
+      .get('http://localhost:8081/users')
+      .then(response => (this.info = response.data)).catch(error => {
+        console.log(error)
+        this.errored = true
+      })
+  },
+  computed: {
+    calcRow () {
+      return this.info
+    }
+  }
 }
 </script>
 
