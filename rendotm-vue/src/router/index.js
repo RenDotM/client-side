@@ -17,6 +17,14 @@ export default new Router({
       path: '/',
       name: 'Hello',
       component: Hello
-    }
+    },
+    // {
+    //   path: '/manage',
+    //   name: 'manage',
+    //   component: App,
+    //   meta: {
+    //     requiresAuth: true,
+    //   }
+    // },
   ]
 })

@@ -2,13 +2,28 @@
   <div id="app">
     <header>
       <span>Ren.M
-        <md-button >Login</md-button>
-        <md-button >Sign up</md-button>
       </span>
-
-            
-
     </header>
+    <div class="login-form">
+      <h2 class="login-heading">Login</h2>
+      <form action="#" @submit.prevent="login">
+
+        <div class="form-control">
+          <label for="email">Username/Email</label>
+          <input type="email" name="username" id="username" class="login-input" v-model="username">
+        </div>
+
+        <div class="form-control mb-more">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" class="login-input" v-model="password">
+        </div>
+
+        <div class="form-control">
+          <button type="submit" class="btn-submit">Login</button>
+        </div>
+
+      </form>
+    </div>
     <main>
       <div>
         <h1 align="left">Get</h1>
@@ -90,6 +105,8 @@ export default {
       getViaId: '',
       postById: '',
       deleteById: '',
+      username: '',
+      password: '',
     }
   },
   methods: {
@@ -121,11 +138,10 @@ export default {
           this.errored = true
         })
       },
-    },
     PostById(payload) {
       console.log('PostById')
       console.log('payload' + JSON.stringify(payload))
-      axios.post('http://`localhost`:8081/users/1',
+      axios.post('http://localhost:8081/users/1',
         {
           user_id: 'PostById',
           username: 'cc@gmail.com',
@@ -143,7 +159,7 @@ export default {
     DeleteById(payload) {
       console.log('PostById')
       console.log('payload' + JSON.stringify(payload))
-      axios.delete('http://`localhost`:8081/users/1',
+      axios.delete('http://localhost:8081/users/1',
         {
           user_id: 'PostById',
           username: 'cc@gmail.com',
@@ -158,6 +174,17 @@ export default {
         console.log(error);
       });
     },
+    login() {
+      this.$store.dispatch('login', {
+        username: 'chris',
+        password: 'this.password',
+      })
+        .then(response => {
+          console.log('response from login' + JSON.stringify(response));
+          // this.$router.push({ name: 'manage' })
+        })
+    },
+  },
   mounted () {
     axios
       .get('http://localhost:8081/users')
