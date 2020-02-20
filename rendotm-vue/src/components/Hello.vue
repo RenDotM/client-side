@@ -1,8 +1,11 @@
 <template>
   <div class="hello">
+      <span>HELLO
+      </span>
 
-
+  <router-view></router-view>
   </div>
+
 </template>
 
 <script>

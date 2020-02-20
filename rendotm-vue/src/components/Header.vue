@@ -1,38 +1,26 @@
 <template>
-<v-toolbar class="indigo" dark app flat fixed>
-  <v-toolbar-title class="text-uppercase mr-4" to="/">
-    <router-link class="title font-weight-light" to="/">
-      RM
-    </router-link>
-  </v-toolbar-title>
-
-  <!-- <v-toolbar-items>
-    <v-btn flat to="/albums">Explore</v-btn>
-  </v-toolbar-items> -->
-
-  <!-- <v-spacer></v-spacer>
-
-  <v-toolbar-items v-if="isUserLoggedIn">
-    <v-btn flat icon to="/purchase-history">
-      <v-icon>history</v-icon>
-    </v-btn>
-    <v-btn flat icon to="/cart">
-      <v-icon>shopping_cart</v-icon>
-    </v-btn>
-    <v-btn flat icon to="/loves">
-      <v-icon>favorite</v-icon>
-    </v-btn>
-    <v-btn flat icon to="/userprofile">
-      <v-icon>account_circle</v-icon>
-    </v-btn>v-``
-    <v-btn flat @click="logout">Log Out</v-btn>
-  </v-toolbar-items>
-
-  <v-toolbar-items v-else>
-    <auth-pop-up/>
-  </v-toolbar-items> -->
-
-</v-toolbar>
+  <div id="header">
+    <header>
+      <span>Ren.M
+      </span>
+    </header>
+    <!-- <div class="login-form">
+      <h2 class="login-heading">Login</h2>
+      <form action="#" @submit.prevent="login">
+        <div class="form-control">
+          <label for="email">Username/Email</label>
+          <input type="email" name="username" id="username" class="login-input" v-model="username">
+        </div>
+        <div class="form-control mb-more">
+          <label for="password">Password</label>
+          <input type="password" name="password" id="password" class="login-input" v-model="password">
+        </div>
+        <div class="form-control">
+          <button type="submit" class="btn-submit">Login</button>
+        </div>
+      </form>
+    </div> -->
+  </div>
 </template>
 
 <script>
@@ -40,7 +28,7 @@
 // import AuthPopUp from '@/components/AuthWindow/AuthPopUp.vue';
 
 export default {
-  name: 'Header',
+  name: 'header',
   components: {
     // AuthPopUp,
   },
@@ -50,14 +38,28 @@ export default {
     // }),
   },
   methods: {
-    logout () {
-    //   this.$store.dispatch('setToken', null);
-    //   this.$store.dispatch('setUser', null);
-    }
+
   }
 }
 </script>
 
 <style >
+header {
+  margin: 0;
+  height: 56px;
+  padding: 0 16px 0 24px;
+  background-color: #35495E;
+  color: #ffffff;
+}
 
+header span {
+  display: block;
+  position: relative;
+  font-size: 20px;
+  line-height: 1;
+  letter-spacing: .02em;
+  font-weight: 400;
+  box-sizing: border-box;
+  padding-top: 16px;
+}
 </style>

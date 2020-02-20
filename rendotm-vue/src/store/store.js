@@ -113,10 +113,9 @@ export default new Vuex.Store({
     },
     destroyToken(context) {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
-
       if (context.getters.loggedIn) {
         return new Promise((resolve, reject) => {
-          axios.post('/logout')
+          axios.post('http://localhost:8081/logout')
             .then(response => {
               localStorage.removeItem('access_token')
               context.commit('destroyToken')
@@ -135,19 +134,18 @@ export default new Vuex.Store({
     login(context, credentials) {
         console.log('in login of store.js');
       return new Promise((resolve, reject) => {
-        console.log('store.js resolve:'+ JSON.stringify(resolve));
         axios.post('http://localhost:8081/login', {
           username: credentials.username,
           password: credentials.password,
         })
           .then(response => {
+            console.log('login response.data.access_token:' + JSON.stringify(response.data.access_token));
             const token = response.data.access_token
 
             localStorage.setItem('access_token', token)
             context.commit('retrieveToken', token)
             resolve(response)
-            // console.log(response);
-            // context.commit('addTodo', response.data)
+            // context.commit('addTodo', response.data)  
           })
           .catch(error => {
             console.log(error)
