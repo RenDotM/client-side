@@ -8,10 +8,11 @@ import store from './store/store';
 import VueGoodTablePlugin from 'vue-good-table'
 import VueMaterial from 'vue-material'
 import 'vue-material/dist/vue-material.min.css'
+import vuetify from './plugins/vuetify';
+import '@babel/polyfill'
 
 Vue.config.productionTip = false
 Vue.use(VueMaterial)
-
 // Vue.use(Router)
 Vue.use(VueGoodTablePlugin)
 // sync(store, router);
@@ -19,9 +20,10 @@ Vue.use(VueGoodTablePlugin)
 /* eslint-disable no-new */
 new Vue({
   store,
-  // el: '#app',
   router,
+  vuetify,
+
   // template: '<App/>',
-  render: h => h(App),
   // components: { App }
+  render: h => h(App)
 }).$mount('#app');

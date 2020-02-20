@@ -1,12 +1,15 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <Header />
-    <router-view />
-  </div>
+    <v-content>
+      <transition name="fade" mode="out-in">
+        <router-view />
+      </transition>
+    </v-content>   
+  </v-app>
 </template>
 
 <script>
-
 import Header from './components/Header.vue';
 export default {
   name: 'app',
@@ -18,10 +21,8 @@ export default {
   //   }
   // },
   // methods: {
-
   // },
   // mounted () {
-
   // },
   // computed: {
   // },
@@ -29,5 +30,4 @@ export default {
 </script>
 
 <style>
-
 </style>

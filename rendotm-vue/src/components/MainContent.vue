@@ -1,7 +1,18 @@
 <template>
   <div id="main">
-
-    <div class="login-form">
+    <v-parallax
+      dark
+      :src="require('@/assets/house.jpg')"
+      height="800">
+      <v-layout
+        align-center
+        column
+        justify-center>
+        <h1 class="display-2 font-weight-thin mb-3">Ren.M</h1>
+        <h4 class="subheading">Property Management Made Simpler</h4>
+      </v-layout>
+    </v-parallax>
+    <!-- <div class="login-form">
       <h2 class="login-heading">Login</h2>
       <form action="#" @submit.prevent="login">
         <div class="form-control">
@@ -17,7 +28,7 @@
         </div>
       </form>
     </div>
-
+ -->
 
     <main>
         <div>

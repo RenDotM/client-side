@@ -1,9 +1,22 @@
 <template>
   <div id="header">
-    <header>
-      <span>Ren.M
-      </span>
-    </header>
+<v-app-bar class="black" dark app text fixed>
+  <v-toolbar-title class="text-uppercase mr-4" to="/">
+    <router-link class="title font-weight-light" to="/">
+      Ren.M
+    </router-link>
+  </v-toolbar-title>
+
+  <v-toolbar-items>
+    <v-btn text to="/albums">Explore</v-btn>
+  </v-toolbar-items>
+
+  <v-spacer></v-spacer>
+
+  <auth-pop-up/>
+
+
+</v-app-bar>
     <!-- <div class="login-form">
       <h2 class="login-heading">Login</h2>
       <form action="#" @submit.prevent="login">
@@ -25,12 +38,12 @@
 
 <script>
 // import { mapState } from 'vuex';
-// import AuthPopUp from '@/components/AuthWindow/AuthPopUp.vue';
+import AuthPopUp from '@/components/AuthWindow/AuthPopUp.vue';
 
 export default {
   name: 'header',
   components: {
-    // AuthPopUp,
+    AuthPopUp,
   },
   computed: {
     // ...mapState({
