@@ -2,11 +2,11 @@
 <v-card>
   <v-img
     height="120px"
-    src="https://cdn.vuetifyjs.com/images/cards/plane.jpg">
+    :src="require('@/assets/welcome.jpg')">
     <v-container fill-height fluid>
       <v-layout>
         <v-flex xs12 align-end d-flex>
-          <span class="headline white--text">Sign up</span>
+          <span class="headline white--text">Register</span>
         </v-flex>
       </v-layout>
     </v-container>
@@ -17,42 +17,32 @@
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
         v-model="name"
-        prepend-icon="person"
         type="text"
         label="Name"
-        :rules="nameRules"
         required
       ></v-text-field>
       <v-text-field
         v-model="email"
-        prepend-icon="email"
         type="email"
         label="Email"
-        :rules="emailRules"
         required
       ></v-text-field>
       <v-text-field
         v-model="phonenumber"
-        prepend-icon="phone"
         type="text"
         label="Phone Number"
-        :rules="phoneRules"
         required
       ></v-text-field>
       <v-text-field
         v-model="address"
-        prepend-icon="home"
         type="text"
         label="Address"
-        :rules="addressRules"
         required
       ></v-text-field>
       <v-text-field
         v-model="password"
-        prepend-icon="lock"
         type="password"
         label="Password"
-        :rules="passwordRules"
         required
       ></v-text-field>
  
@@ -110,25 +100,30 @@ export default {
     this.valid = false;
   },
   methods: {
-    async register() {
-      try {
-        const response = await AuthService.register({
-          name: this.name,
-          email: this.email,
-          phonenumber: this.phonenumber,
-          password: this.password,
-          address: this.address,
-        });
-        this.$store.dispatch('setToken', response.data.token);
-        this.$store.dispatch('setUser', response.data.user);
-        this.$emit('done');
-        this.$refs.form.reset();
-      } catch (error) {
-        this.error = error.response.data.error;
-      } finally {
 
-      }
+    register() {
+      this.$store.dispatch('register', {
+        name: this.name,
+        email: this.email,
+        phonenumber: this.phonenumber,
+        password: this.password,
+        address: this.address,
+      })
+        .then(response => {
+          console.log('response from login' + JSON.stringify(response));
+          // response from login{"data":{"user":[{"user_id":"1","username":"ck43789@gmail.com","password":"abc123","tenants":[1,2,3]},{"user_id":"2","username":"ppui2567@gmail.com","password":"abc456","tenants":[1,2,3]},{}],"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7fSwiaWF0IjoxNTgyMjUyNjk3fQ.jiCKgciMiB3hng2dR-dnn3clKlRro-yeq-7_SfvfGuo"},"status":200,"statusText":"OK","headers":{"connection":"keep-alive","content-length":"321","content-type":"application/json; charset=utf-8","date":"Fri, 21 Feb 2020 02:38:17 GMT","etag":"W/\"141-4saVXSGk3HhZPE50XcNegQvWa80\"","x-powered-by":"Express"},"config":{"url":"http://localhost:8081/users","method":"post","data":"{}","headers":{"Accept":"application/json, text/plain, */*","Content-Type":"application/json;charset=utf-8"},"baseURL":"http://localhost8081/","transformRequest":[null],"transformResponse":[null],"timeout":0,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1},"request":{}}
+          localStorage.setItem('access_token', response.data.access_token)
+          this.$emit('done');
+          this.$refs.form.reset();
+          this.$router.push({ name: 'hello' })
+        })
+        .catch(error => {
+          this.serverError = error.response.data
+          this.password = ''
+          this.successMessage = ''
+        })
     },
+
     onVerify(response) {
     },
   },

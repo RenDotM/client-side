@@ -97,13 +97,17 @@ export default new Vuex.Store({
       context.commit('clearTodos')
     },
     register(context, data) {
+      console.log('in register');
       return new Promise((resolve, reject) => {
-        axios.post('/register', {
-          name: data.name,
-          email: data.email,
-          password: data.password,
+        axios.post('http://localhost:8081/users', {
+          name: this.name,
+          email: this.email,
+          phonenumber: this.phonenumber,
+          password: this.password,
+          address: this.address,
         })
           .then(response => {
+            console.log('login response:' + JSON.stringify(response));
             resolve(response)
           })
           .catch(error => {
@@ -140,6 +144,7 @@ export default new Vuex.Store({
         })
           .then(response => {
             console.log('login response.data.access_token:' + JSON.stringify(response.data.access_token));
+            // login response.data.access_token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiMTIxMjEyMTIiLCJwYXNzd29yZCI6IjEyMTIxMjEyIn0sImlhdCI6MTU4MjI0NzQ4N30.q-192LqWBc_jRtdgFHAnSrvI8qa8YYdPMg_yE505BOo"
             const token = response.data.access_token
 
             localStorage.setItem('access_token', token)

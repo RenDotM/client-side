@@ -2,7 +2,7 @@
 <v-card>
   <v-img
     height="120px"
-    src="https://cdn.vuetifyjs.com/images/cards/docks.jpg">
+    :src="require('@/assets/openDoor.jpg')">
     <v-container fill-height fluid>
       <v-layout>
         <v-flex xs12 align-end d-flex>
@@ -16,16 +16,12 @@
     <div class="error" v-html="error" />
     <v-form ref="form" v-model="valid" lazy-validation>
       <v-text-field
-        v-model="email"
-        prepend-icon="email"
-        type="email"
-        label="Email"
-        :rules="emailRules"
+        v-model="username"
+        label="Username"
         required
       ></v-text-field>
       <v-text-field
         v-model="password"
-        prepend-icon="lock"
         type="password"
         label="Password"
         :rules="passwordRules"
@@ -56,11 +52,7 @@ import AuthService from '@/services/Auth';
 export default {
   data() {
     return {
-      email: '',
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v => /.+@.+/.test(v) || 'E-mail must be valid',
-      ],
+      username: '',
       password: '',
       passwordRules: [
         v => !!v || 'Password is required',
@@ -77,22 +69,29 @@ export default {
     this.valid = false;
   },
   methods: {
-    async login() {
-      try {
-        const response = await AuthService.login({
-          email: this.email,
-          password: this.password,
-        });
-        this.$store.dispatch('setToken', response.data.token);
-        this.$store.dispatch('setUser', response.data.user);
-        this.$emit('done');
-        this.$refs.form.reset();
-      } catch (error) {
-        this.error = error.response.data.error;
-      } finally {
 
-      }
+    login() {
+      this.$store.dispatch('login', {
+        username: this.username,
+        password: this.password,
+      })
+        .then(response => {
+          console.log('response from login' + JSON.stringify(response));
+          // response from login{"data":{"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiMTIzMTQxNDEyNDE0MiIsInBhc3N3b3JkIjoiMTIzMTQxNDEyNDE0MiJ9LCJpYXQiOjE1ODIyNDc2MDh9.ban4eSfvqNLFUOwtV3JO6yxPdtYXPnjmj3CfR6MJPVE"},"status":200,"statusText":"OK","headers":{"connection":"keep-alive","content-length":"208","content-type":"application/json; charset=utf-8","date":"Fri, 21 Feb 2020 01:13:28 GMT","etag":"W/\"d0-Ts1tH02Jkqv0QP1W20Sp2GEhVtQ\"","x-powered-by":"Express"},"config":{"url":"http://localhost:8081/login","method":"post","data":"{\"username\":\"1231414124142\",\"password\":\"1231414124142\"}","headers":{"Accept":"application/json, text/plain, */*","Content-Type":"application/json;charset=utf-8"},"baseURL":"http://localhost8081/","transformRequest":[null],"transformResponse":[null],"timeout":0,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1},"request":{}}
+          localStorage.setItem('access_token', response)
+          this.$emit('done');
+          this.$refs.form.reset();
+          this.$router.push({ name: 'hello' })
+        })
+        .catch(error => {
+          this.serverError = error.response.data
+          this.password = ''
+          this.successMessage = ''
+        })
     },
+
+
+
     redirect() {
       this.$router.push('/forgotpassword');
       this.$emit('done');

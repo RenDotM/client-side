@@ -169,7 +169,7 @@ export default {
         password: this.password,
       })
         .then(response => {
-          console.log('response from login' + JSON.stringify(response));
+          console.log('response.access_token from login' + JSON.stringify(response.access_token));
           this.loading = false
           this.$router.push({ name: 'hello' })
         })
