@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Hello from '@/components/Hello'
+import Manage from '@/components/Manage'
 import MainContent from '../components/MainContent'
 // import VueGoodTablePlugin from 'vue-good-table'
 // import VueMaterial from 'vue-material'
@@ -20,9 +20,9 @@ export default new VueRouter({
       component: MainContent
     },
     {
-      path: '/hello',
-      name: 'hello',
-      component: Hello,
+      path: '/manage',
+      name: 'manage',
+      component: Manage,
       meta: {
         requiresAuth: true,
       }

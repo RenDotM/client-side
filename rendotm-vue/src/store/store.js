@@ -80,6 +80,21 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    getUsers(payload) {
+      console.log('getUsers access_token:' + JSON.stringify(localStorage.getItem('access_token')));
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + localStorage.getItem('access_token');
+      return new Promise((resolve, reject) => {
+        axios.get('http://localhost:8081/users', { crossdomain: true })
+        .then(response => {
+          console.log('getUsers store response:' + JSON.stringify(response));
+          resolve(response);
+        })
+        .catch(error => {
+          console.log(error);
+          reject(error);
+        })
+      })
+    },
     retrieveName(context) {
       axios.defaults.headers.common['Authorization'] = 'Bearer ' + context.state.token
 
@@ -107,7 +122,7 @@ export default new Vuex.Store({
           address: this.address,
         })
           .then(response => {
-            console.log('login response:' + JSON.stringify(response));
+            console.log('register store response:' + JSON.stringify(response));
             resolve(response)
           })
           .catch(error => {
@@ -143,7 +158,7 @@ export default new Vuex.Store({
           password: credentials.password,
         })
           .then(response => {
-            console.log('login response.data.access_token:' + JSON.stringify(response.data.access_token));
+            console.log('login store response.data.access_token:' + JSON.stringify(response.data.access_token));
             // login response.data.access_token:"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7InVzZXJuYW1lIjoiMTIxMjEyMTIiLCJwYXNzd29yZCI6IjEyMTIxMjEyIn0sImlhdCI6MTU4MjI0NzQ4N30.q-192LqWBc_jRtdgFHAnSrvI8qa8YYdPMg_yE505BOo"
             const token = response.data.access_token
 

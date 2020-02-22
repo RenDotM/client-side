@@ -81,7 +81,7 @@ export default {
           localStorage.setItem('access_token', response)
           this.$emit('done');
           this.$refs.form.reset();
-          this.$router.push({ name: 'hello' })
+          this.$router.push({ name: 'manage' })
         })
         .catch(error => {
           this.serverError = error.response.data

@@ -110,12 +110,12 @@ export default {
         address: this.address,
       })
         .then(response => {
-          console.log('response from login' + JSON.stringify(response));
-          // response from login{"data":{"user":[{"user_id":"1","username":"ck43789@gmail.com","password":"abc123","tenants":[1,2,3]},{"user_id":"2","username":"ppui2567@gmail.com","password":"abc456","tenants":[1,2,3]},{}],"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7fSwiaWF0IjoxNTgyMjUyNjk3fQ.jiCKgciMiB3hng2dR-dnn3clKlRro-yeq-7_SfvfGuo"},"status":200,"statusText":"OK","headers":{"connection":"keep-alive","content-length":"321","content-type":"application/json; charset=utf-8","date":"Fri, 21 Feb 2020 02:38:17 GMT","etag":"W/\"141-4saVXSGk3HhZPE50XcNegQvWa80\"","x-powered-by":"Express"},"config":{"url":"http://localhost:8081/users","method":"post","data":"{}","headers":{"Accept":"application/json, text/plain, */*","Content-Type":"application/json;charset=utf-8"},"baseURL":"http://localhost8081/","transformRequest":[null],"transformResponse":[null],"timeout":0,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1},"request":{}}
+          console.log('response from register' + JSON.stringify(response));
+          //{"data":{"user":[{"user_id":"1","username":"ck43789@gmail.com","password":"abc123","tenants":[1,2,3]},{"user_id":"2","username":"ppui2567@gmail.com","password":"abc456","tenants":[1,2,3]},{},{},{},{},{}],"access_token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7fSwiaWF0IjoxNTgyMzM5NDE1fQ.x-u2uknaqiFmrpIO-3RWI-Mz8ySPdt8nkUFEkWdf8UM"},"status":200,"statusText":"OK","headers":{"connection":"keep-alive","content-length":"333","content-type":"application/json; charset=utf-8","date":"Sat, 22 Feb 2020 02:43:35 GMT","etag":"W/\"14d-HWaLPhyWi1m333YbY7eiA/lA7Io\"","x-powered-by":"Express"},"config":{"url":"http://localhost:8081/users","method":"post","data":"{}","headers":{"Accept":"application/json, text/plain, */*","Content-Type":"application/json;charset=utf-8"},"baseURL":"http://localhost8081/","transformRequest":[null],"transformResponse":[null],"timeout":0,"xsrfCookieName":"XSRF-TOKEN","xsrfHeaderName":"X-XSRF-TOKEN","maxContentLength":-1},"request":{}}
           localStorage.setItem('access_token', response.data.access_token)
           this.$emit('done');
           this.$refs.form.reset();
-          this.$router.push({ name: 'hello' })
+          this.$router.push({ name: 'manage' })
         })
         .catch(error => {
           this.serverError = error.response.data
